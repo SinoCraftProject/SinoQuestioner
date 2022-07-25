@@ -1,13 +1,21 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import database from "./_db";
-import {QuizAnswer, QuizModel, QuizQuestion} from "../../models/QuizModel";
+import database from "../_db";
+import {QuizAnswer, QuizModel, QuizQuestion} from "../../../models/QuizModel";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method != 'GET') {
-        res.status(401);
+        res.status(401).json({});
+        return;
     } else {
-        res.status(200).json(await getQuizzes());
+        let { quizId } = req.query;
+
+        if (quizId !== process.env.QUIZ_ID) {
+            res.status(401).json({});
+            return;
+        }
     }
+
+    res.status(200).json(await getQuizzes());
 }
 
 async function getQuizzes(): Promise<QuizModel> {
