@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+import {Db, MongoClient} from "mongodb";
 
 export const dbHost = process.env.DB_HOST || "www.example.com";
 export const dbUser = process.env.DB_USER || "root";

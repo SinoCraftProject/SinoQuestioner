@@ -5,6 +5,7 @@ export type QuizModel = {
 }
 
 export type QuizQuestion = {
+    id: number;
     question: string;
     answersCount: number;
     answers: QuizAnswer[];

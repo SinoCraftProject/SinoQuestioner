@@ -4,15 +4,15 @@ import {QuizAnswer, QuizModel, QuizQuestion} from "../../../models/QuizModel";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method != 'GET') {
-        res.status(401).json({});
+        res.status(401);
         return;
-    } else {
-        let { quizId } = req.query;
+    }
 
-        if (quizId !== process.env.QUIZ_ID) {
-            res.status(401).json({});
-            return;
-        }
+    let { quizId } = req.query;
+
+    if (quizId !== process.env.QUIZ_ID) {
+        res.status(404);
+        return;
     }
 
     res.status(200).json(await getQuizzes());
@@ -27,8 +27,6 @@ async function getQuizzes(): Promise<QuizModel> {
     let res = await collection.find().toArray();
 
     for (let q of res) {
-        console.log(q)
-
         let answers: QuizAnswer[] = [];
 
         if (q.question
@@ -68,6 +66,7 @@ async function getQuizzes(): Promise<QuizModel> {
         });
 
         let question: QuizQuestion = {
+            id: q.questionId,
             question: q.question,
             answers: answers,
             answersCount: 4     // Todo: qyl27: we have 4 answers for now.

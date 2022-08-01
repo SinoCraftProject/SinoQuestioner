@@ -1,11 +1,13 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import Leaderboard from "./leaderboard";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>SinoQuiz!</title>
         <meta name="description" content="SinoQuiz" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -16,7 +18,8 @@ export default function Home() {
         </h1>
 
         <p className={styles.description}>
-          This is quiz api of SinoCore.
+          This is quiz api of SinoCore. <br/>
+          <Link href={'/leaderboard'}>View the Leaderboard for TeaCon 2022.</Link>
         </p>
       </main>
 
@@ -26,7 +29,7 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by&nbsp;
           <span>qyl27</span>
         </a>
       </footer>
