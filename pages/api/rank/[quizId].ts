@@ -19,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     if (req.method === 'GET') {
-        if (best == 'true') {
+        if (best == 'true' && player) {
             await makeBestRank(res, player + '');
         } else {
             await makeRank(res);
@@ -93,14 +93,14 @@ async function record(res: NextApiResponse, playerData: PlayerData, time: TimeSp
     return;
 }
 
-async function makeRank(res: NextApiResponse, ) {
+async function makeRank(res: NextApiResponse) {
     let db = await (await database).db();
     let collection = await db.collection('rank');
 
     let ranks = [];
     let data = await collection.find()
+        .sort({timeUsed: -1})
         .sort({tries: 1})
-        .sort({timeUsed: 1})
         .limit(10)
         .toArray();
 
@@ -155,7 +155,7 @@ async function makeBestRank(res: NextApiResponse, player: string) {
         res.status(200).json(board);
         return;
     } else {
-        let data: RankDataModel = await collection.findOne<RankDataModel>({ player: { id: player }});
+        let data = await collection.findOne({ 'player.id': player });
 
         let rank: BestModel = {
             player: data.player,
