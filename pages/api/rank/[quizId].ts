@@ -157,9 +157,19 @@ async function makeBestRank(res: NextApiResponse, player: string) {
     } else {
         let data = await collection.findOne({ 'player.id': player });
 
+        if (data) {
+            let rank: BestModel = {
+                player: data.player,
+                best: data.best
+            };
+
+            res.status(200).json(rank);
+            return;
+        }
+
         let rank: BestModel = {
-            player: data.player,
-            best: data.best
+            player: null,
+            best: -1
         };
 
         res.status(200).json(rank);
