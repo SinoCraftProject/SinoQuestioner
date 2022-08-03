@@ -1,48 +1,47 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import {
-    LeaderboardDatabaseModel,
-    LeaderboardModel,
-    LeaderboardPostModel,
-    PlayerData,
-    PlayerRankModel,
-    TimeSpan
-} from "../../../models/LeaderboardModel";
+// import {
+//     LeaderboardDatabaseModel,
+//     LeaderboardModel,
+//     LeaderboardPostModel,
+//     PlayerData,
+//     PlayerRankModel,
+//     TimeSpan
+// } from "../../../models/LeaderboardModel";
 import database from "../_db";
-import {number} from "prop-types";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    let { quizId, best } = req.query;
-
-    if (quizId !== process.env.QUIZ_ID) {
-        res.status(404);
-        return;
-    }
-
-    if (req.method === 'GET') {
-        await doGetLeaderboard(req.query.player, res, best);
-        return;
-    }
-
-    if (req.method === 'POST') {
-        let data: LeaderboardPostModel = req.body;
-
-        let key = data.quizKey;
-        if (key !== process.env.LEADERBOARD_KEY) {
-            res.status(403);
-            return;
-        }
-
-        if (!data.player.id || !data.player.uuid || !data.timeSpan.start || !data.timeSpan.end) {
-            res.status(403);
-            return;
-        }
-
-        await doPostLeaderboard(data, res);
-        return;
-    }
-
-    res.status(404);
-    return;
+    // let { quizId, best } = req.query;
+    //
+    // if (quizId !== process.env.QUIZ_ID) {
+    //     res.status(404);
+    //     return;
+    // }
+    //
+    // if (req.method === 'GET') {
+    //     await doGetLeaderboard(req.query.player, res, best);
+    //     return;
+    // }
+    //
+    // if (req.method === 'POST') {
+    //     let data: LeaderboardPostModel = req.body;
+    //
+    //     let key = data.quizKey;
+    //     if (key !== process.env.LEADERBOARD_KEY) {
+    //         res.status(403);
+    //         return;
+    //     }
+    //
+    //     if (!data.player.id || !data.player.uuid || !data.timeSpan.start || !data.timeSpan.end) {
+    //         res.status(403);
+    //         return;
+    //     }
+    //
+    //     await doPostLeaderboard(data, res);
+    //     return;
+    // }
+    //
+    // res.status(404);
+    // return;
 }
 
 const aggWithBest = [
@@ -73,7 +72,7 @@ const aggWithBest = [
         '$limit': 10
     }
 ];
-
+/*
 async function doGetLeaderboard(player: any, res: NextApiResponse, best: any) {
     let db = await (await database).db();
     let collection = await db.collection('leaderboard');
@@ -86,13 +85,6 @@ async function doGetLeaderboard(player: any, res: NextApiResponse, best: any) {
         ]).toArray();
 
         let data = result.records;
-        // if (best == true) {
-        //     for (let i = 1; i < result.records.length; i++) {
-        //         if (result.records[i].timeUsed < data.timeUsed) {
-        //             data = result.records[i];
-        //         }
-        //     }
-        // }
 
         let rank: PlayerRankModel = {
             rank: -1,   // qyl27: not supported now.
@@ -149,3 +141,5 @@ async function insertAndResort(time: TimeSpan, player: PlayerData) {
 
     await collection.insertOne(model);
 }
+
+ */

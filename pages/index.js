@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import Leaderboard from "./leaderboard";
+import Rank from "./rank";
 import Link from "next/link";
 
 export default function Home() {
@@ -19,7 +19,7 @@ export default function Home() {
 
         <p className={styles.description}>
           This is quiz api of SinoCore. <br/>
-          <Link href={'/leaderboard'}>View the Leaderboard for TeaCon 2022.</Link>
+          <Link href={'/rank'}>View the Leaderboard for TeaCon 2022.</Link>
         </p>
       </main>
 

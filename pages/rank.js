@@ -1,7 +1,7 @@
 import styles from "../styles/Leaderboard.module.css";
 import Head from "next/head";
 
-export default function Leaderboard() {
+export default function Rank() {
     return (
         <div className={styles.container}>
             <Head>

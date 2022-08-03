@@ -76,7 +76,7 @@ async function getQuizzes(): Promise<QuizModel> {
     }
 
     return {
-        date: new Date(),
+        date: parseInt((+new Date() / 1000).toString()),
         questions: questions
     };
 }

@@ -8,7 +8,7 @@ export const dbName = process.env.DB_NAME || "site";
 const connectString = `mongodb+srv://${dbUser}:${dbPass}@${dbHost}/${dbName}?retryWrites=true&w=majority`;
 
 let client: MongoClient = null;
-let database;
+let database: Promise<MongoClient>;
 
 if (process.env.NODE_ENV === "development") {
     if (!global._database) {

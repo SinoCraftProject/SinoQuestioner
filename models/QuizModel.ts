@@ -1,6 +1,5 @@
 export type QuizModel = {
-    date: Date;
-
+    date: number;
     questions: QuizQuestion[];
 }
 
