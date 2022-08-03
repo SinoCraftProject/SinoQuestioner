@@ -80,9 +80,9 @@ async function record(res: NextApiResponse, playerData: PlayerData, time: TimeSp
         let timeUsed = time.end - time.start;
         let model: RankDataModel = {
             player: playerData,
-            tries: 1,
+            tries: 0,
             best: timeUsed,
-            bestTries: 1
+            bestTries: 0
         };
 
         await rank.insertOne(model);
@@ -98,7 +98,7 @@ async function makeRank(res: NextApiResponse, ) {
     let collection = await db.collection('rank');
 
     let ranks = [];
-    let data: RankDataModel[] = await collection.find<RankDataModel>(() => true)
+    let data = await collection.find()
         .sort({tries: 1})
         .sort({timeUsed: 1})
         .limit(10)
@@ -131,7 +131,7 @@ async function makeBestRank(res: NextApiResponse, player: string) {
     if (!player) {
         let ranks = [];
 
-        let data: RankDataModel[] = await collection.find<RankDataModel>(() => true)
+        let data = await collection.find()
             .sort({best: 1})
             .limit(10)
             .toArray();
